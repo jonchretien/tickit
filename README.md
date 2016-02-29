@@ -8,11 +8,11 @@ _A basic ticker that uses CSS animations & vanilla JavaScript. It supports verti
 
 #### CSS
 
-+ [tickit.css](https://github.com/jonchretien/tickit/raw/master/dist/tickit.css)
++ [tickit.css](https://github.com/jonchretien/tickit/blob/master/dist/css/tickit.css)
 
 #### JavaScript
 
-+ [tickit.js](https://github.com/jonchretien/tickit/raw/master/dist/tickit.js) 
++ [tickit.js](https://github.com/jonchretien/tickit/blob/master/dist/js/tickit.js) 
 
 ### Markup
 
@@ -60,7 +60,6 @@ Still need to test in IE, iOS, and Android, but otherwise most modern browsers
 + Tests
 + Tweak config options
 + Add error checks
-+ account for longest txt in arr (for box width)
++ Account for longest txt in arr (for box width)
 + Test in IE, iOS, and Android browsers
-+ Add ESLint
 + Minify files.

@@ -87,7 +87,7 @@
     function addText() {
       const el = document.createElement('div');
       el.className = classNames.join(' ');
-      el.style.transform = `translate3d(0, ${initialPos}px, 0)`;
+      el.style.transform = setTransform(initialPos);
       tickitInner.appendChild(el);
       tickitText = tickitInner.querySelector(`.${classNames[1]}`);
     }
@@ -105,7 +105,7 @@
     function hideTickit() {
       isAnimating = true;
       isTickitVisible = false;
-      tickitText.style.transform = `translate3d(0, ${transitionOut}px, 0)`;
+      tickitText.style.transform = setTransform(transitionOut);
     }
 
     /**
@@ -114,7 +114,16 @@
     function showTickit() {
       isAnimating = true;
       isTickitVisible = true;
-      tickitText.style.transform = `translate3d(0, ${transitionIn}px, 0)`;
+      tickitText.style.transform = setTransform(transitionIn);
+    }
+
+    /**
+     * Sets 3D transform value on text.
+     *
+     * @param {Number} position - Position
+     */
+    function setTransform(position) {
+      return `translate3d(0, ${position}px, 0)`;
     }
 
     /**

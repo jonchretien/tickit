@@ -2,6 +2,8 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 /* global define */
 /**
  * @name tickit
@@ -20,11 +22,29 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    * @param {string} config.behavior - The user interaction behavior.
    */
   var Tickit = function Tickit(config) {
-    var data = config.data;
-    var duration = config.duration;
-    var behavior = config.behavior;
-    var initialPos = config.initialPos;
-    var selector = config.selector;
+    var isString = function isString(val) {
+      return toString.call(val) === '[object String]';
+    }; // underscore.js
+    var isNumber = function isNumber(val) {
+      return toString.call(val) === '[object Number]';
+    }; // underscore.js
+    var logError = function logError(type) {
+      throw new Error('Expecting a ' + type);
+    };
+    var setTransform = function setTransform(position) {
+      return 'translate3d(0, ' + position + 'px, 0)';
+    };
+
+    if (!Array.isArray(config.data)) logError('array');
+    if (!isString(config.behavior) || !isString(config.selector)) logError('string');
+    if (!isNumber(config.duration) || !isNumber(config.initialPos)) logError('number');
+
+    var options = _extends({}, config);
+    var data = options.data;
+    var duration = options.duration;
+    var behavior = options.behavior;
+    var initialPos = options.initialPos;
+    var selector = options.selector;
 
     var tickit = document.querySelector(selector);
     var tickitInner = tickit.querySelector('.js-tickit-inner');
@@ -37,15 +57,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var isClickActivated = false;
     var isTickitVisible = false;
     var tickitText = null;
-
-    /**
-     * Sets 3D transform value on text.
-     *
-     * @param {Number} position - Position
-     */
-    function setTransform(position) {
-      return 'translate3d(0, ' + position + 'px, 0)';
-    }
 
     /**
      * Hides text container.

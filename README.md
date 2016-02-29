@@ -58,8 +58,6 @@ Still need to test in IE, iOS, and Android, but otherwise most modern browsers
 
 + Demos
 + Tests
-+ Tweak config options
-+ Add error checks
 + Account for longest txt in arr (for box width)
 + Test in IE, iOS, and Android browsers
-+ Minify files.
++ Minify files

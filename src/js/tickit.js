@@ -16,7 +16,17 @@
    * @param {string} config.behavior - The user interaction behavior.
    */
   const Tickit = (config) => {
-    const { data, duration, behavior, initialPos, selector } = config;
+    const isString = (val) => toString.call(val) === '[object String]'; // underscore.js
+    const isNumber = (val) => toString.call(val) === '[object Number]'; // underscore.js
+    const logError = (type) => { throw new Error(`Expecting a ${type}`); };
+    const setTransform = (position) => `translate3d(0, ${position}px, 0)`;
+
+    if (!Array.isArray(config.data)) logError('array');
+    if (!isString(config.behavior) || !isString(config.selector)) logError('string');
+    if (!isNumber(config.duration) || !isNumber(config.initialPos)) logError('number');
+
+    const options = Object.assign({}, config);
+    const { data, duration, behavior, initialPos, selector } = options;
     const tickit = document.querySelector(selector);
     const tickitInner = tickit.querySelector('.js-tickit-inner');
     const transitionIn = 0;
@@ -28,15 +38,6 @@
     let isClickActivated = false;
     let isTickitVisible = false;
     let tickitText = null;
-
-    /**
-     * Sets 3D transform value on text.
-     *
-     * @param {Number} position - Position
-     */
-    function setTransform(position) {
-      return `translate3d(0, ${position}px, 0)`;
-    }
 
     /**
      * Hides text container.

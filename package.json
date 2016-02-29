@@ -1,0 +1,26 @@
+{
+  "name": "tickit",
+  "version": "0.0.0",
+  "description": "A basic ticker that uses CSS animations & vanilla JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:copy": "cp src/css/tickit.css dist/css/tickit.css",
+    "build:js": "babel src/js/tickit.js -o dist/js/tickit.js",
+    "build:prefix": "postcss --use autoprefixer --autoprefixer.browsers \"> 1%, last 2 version\" -r dist/css/tickit.css dist/css/tickit.css",
+    "build": "npm run build:copy && npm run build:prefix && npm run build:js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonchretien/tickit.git"
+  },
+  "author": "Jon Chretien",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^6.3.3",
+    "babel-cli": "^6.5.1",
+    "babel-plugin-transform-object-assign": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "postcss-cli": "^2.5.1"
+  }
+}

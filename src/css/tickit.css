@@ -1,0 +1,24 @@
+.tickit {
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.8;
+  transition: opacity .5s ease-in-out, width .5s ease-in-out;
+  width: 170px;
+  z-index: 1030;
+}
+
+.tickit-inner {
+  background: #333;
+  color: #fff;
+  height: 24px;
+  max-width: 200px;
+  overflow: hidden;
+  padding: 3px 8px;
+  text-align: left;
+  text-decoration: none;
+}
+
+.tickit-text {
+  transition-duration: .25s;
+  transition-timing-function: ease-in-out;
+}

@@ -1,0 +1,11 @@
+# dependencies
+node_modules/
+
+# misc.
+.DS_Store
+Icon
+Thumbs.db
+*.ico
+.htaccess
+npm-debug.log
+demo/

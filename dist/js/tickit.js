@@ -2,6 +2,7 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
+/* global define */
 /**
  * @name tickit
  * @overview A basic ticker that uses CSS animations & vanilla JavaScript.
@@ -32,80 +33,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var classNames = ['tickit-text', 'js-tickit-text'];
 
     var counter = 0;
-    var hasStarted = false;
     var isAnimating = false;
     var isClickActivated = false;
     var isTickitVisible = false;
     var tickitText = null;
 
     /**
-     * Initialize logic.
+     * Sets 3D transform value on text.
      *
-     * @api private
+     * @param {Number} position - Position
      */
-    function init() {
-      attachEvents();
-      addText();
-      draw();
-    }
-
-    /**
-     * Attaches event handlers.
-     *
-     * @api private
-     */
-    function attachEvents() {
-      if (config.behavior === 'click') {
-        tickitInner.addEventListener('click', handleClickEvent, false);
-      }
-      tickitInner.addEventListener('transitionend', handleTransitionEndEvent, false);
-    }
-
-    /**
-     * Handles click events.
-     *
-     * @param {Object} event - The event triggered.
-     */
-    function handleClickEvent(event) {
-      if (!isAnimating && event.target && event.target.nodeName.toLowerCase() === 'div') {
-        isClickActivated = true;
-        hideTickit();
-        return false;
-      }
-    }
-
-    /**
-     * Handles transition end events.
-     *
-     * @param {Object} event - The event triggered.
-     */
-    function handleTransitionEndEvent(event) {
-      if (event.target && event.target.nodeName.toLowerCase() === 'div') {
-        if (!isTickitVisible) {
-          removeText();
-          addText();
-        }
-
-        requestAnimationFrame(draw);
-      }
-    }
-
-    /**
-     * Adds text element.
-     */
-    function addText() {
-      var el = document.createElement('div');
-      el.className = classNames.join(' ');
-      el.style.transform = setTransform(initialPos);
-      tickitInner.appendChild(el);
-      tickitText = tickitInner.querySelector('.' + classNames[1]);
-    }
-
-    /**
-     * Removes text element.
-     */
-    function removeText() {
-      tickitInner.removeChild(tickitText);
+    function setTransform(position) {
+      return 'translate3d(0, ' + position + 'px, 0)';
     }
 
     /**
@@ -127,20 +66,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     /**
-     * Sets 3D transform value on text.
-     *
-     * @param {Number} position - Position
-     */
-    function setTransform(position) {
-      return 'translate3d(0, ' + position + 'px, 0)';
-    }
-
-    /**
      * Handles animation frame based on behavior.
      */
     function draw() {
       var timer = setTimeout(function () {
-        if (!isClickActivated && isTickitVisible && config.behavior === 'click' || isTickitVisible && isClickActivated) {
+        if (!isClickActivated && isTickitVisible && behavior === 'click' || isTickitVisible && isClickActivated) {
           isAnimating = false;
           clearTimeout(timer);
           return;
@@ -156,6 +86,76 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           hideTickit();
         }
       }, duration);
+    }
+
+    /**
+     * Adds text element.
+     */
+    function addText() {
+      var el = document.createElement('div');
+      el.className = classNames.join(' ');
+      el.style.transform = setTransform(initialPos);
+      tickitInner.appendChild(el);
+      tickitText = tickitInner.querySelector('.' + classNames[1]);
+    }
+
+    /**
+     * Removes text element.
+     */
+    function removeText() {
+      tickitInner.removeChild(tickitText);
+    }
+
+    /**
+     * Handles click events.
+     *
+     * @param {Object} event - The event triggered.
+     */
+    function handleClickEvent(event) {
+      if (!isAnimating && event.target && event.target.nodeName.toLowerCase() === 'div') {
+        isClickActivated = true;
+        hideTickit();
+        return;
+      }
+    }
+
+    /**
+     * Handles transition end events.
+     *
+     * @param {Object} event - The event triggered.
+     */
+    function handleTransitionEndEvent(event) {
+      if (event.target && event.target.nodeName.toLowerCase() === 'div') {
+        if (!isTickitVisible) {
+          removeText();
+          addText();
+        }
+
+        requestAnimationFrame(draw);
+      }
+    }
+
+    /**
+     * Attaches event handlers.
+     *
+     * @api private
+     */
+    function attachEvents() {
+      if (behavior === 'click') {
+        tickitInner.addEventListener('click', handleClickEvent, false);
+      }
+      tickitInner.addEventListener('transitionend', handleTransitionEndEvent, false);
+    }
+
+    /**
+     * Initialize logic.
+     *
+     * @api private
+     */
+    function init() {
+      attachEvents();
+      addText();
+      draw();
     }
 
     return { init: init };

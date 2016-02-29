@@ -54,7 +54,8 @@ Still need to test in IE, iOS, and Android, but otherwise most modern browsers
 
 **tickit** is released under the [MIT license](https://github.com/jonchretien/tickit/blob/master/LICENSE.txt).
 
-To Do
+## To Do
+
 + Demos
 + Tests
 + Tweak config options

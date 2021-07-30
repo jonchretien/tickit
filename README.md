@@ -43,7 +43,7 @@ var config = {
   behavior: 'scroll'
 };
 
-var ticker = Ticker(config).init();
+var ticker = Tickit(config).init();
 ```
 
 ## Browser Support

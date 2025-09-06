@@ -35,7 +35,7 @@ _A basic ticker that uses CSS animations & vanilla JavaScript. It supports verti
  * @param {number} config.initialPos - The initial offset position.
  * @param {string} config.behavior - The user interaction behavior.
  */
-var config = {
+const config = {
   data: ['item 1', 'item 2', 'item 3'],
   selector: '#tickit',
   duration: 1000,
@@ -43,7 +43,7 @@ var config = {
   behavior: 'scroll'
 };
 
-var ticker = Tickit(config).init();
+const tickit = Tickit(config).init();
 ```
 
 ## Browser Support
